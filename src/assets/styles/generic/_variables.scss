@@ -1,0 +1,56 @@
+//Colors
+/* Colors from style guide */
+$orange:  #ff5800 !default;
+$orange-hover:#DF5208 !default;
+$white:   #ffffff !default;
+$error:   #ee0000 !default;
+$grey100: #383c40 !default;
+$grey200: #42474d !default;
+$grey300: #515459 !default;
+$grey400: #5e6167 !default; // Contrasts: #ffffff - 6.21
+$grey500: #70777e !default; // Contrasts: #ffffff - 4.54
+$grey600: #868f98 !default;
+$grey700: #bfc0c2 !default;
+$grey800: #dfe0e1 !default;
+$grey900: #f3f3f3 !default;
+
+//Typography
+$font: "BentonSans", "Arial", sans-serif !default;
+$rem-base: 10px !default;
+
+//Icon font
+$icomoon-font-path: "/icons/fonts" !default;
+
+// Sizes
+$space: 15px !default;
+$space-double: $space*2 !default;
+$space-half: $space/2 !default;
+
+// @media
+$phablet: 520px !default;
+$phabletplus: 600px !default;
+$tablet: 768px !default;
+$plus: 950px !default;
+$desktop: 1024px !default;
+$largedesktop: 1190px !default;
+$iphone6: 375px !default;
+$lowscreen: 1024px !default;
+
+// Container
+$container: 1200px !default;
+$container--small: 1030px !default;
+$container--phablet: 900px !default;
+
+// Grid
+$columns: 12 !default;
+$gutter: 20px !default;
+$container-padding: 15px !default;
+$gutter-spacing: $container-padding + $gutter/2 !default;
+
+// Transitions
+// https://gist.github.com/stoikerty/40ee7d3ee6016a485092
+$easeOutExpo: cubic-bezier(.190,1,.220,1) !default;
+$easeInExpo: cubic-bezier(.950,.050,.795,.035) !default;
+$easeInOutExpo: cubic-bezier(1,0,0,1) !default;
+
+$navtransition: 200ms ease-in-out !default;

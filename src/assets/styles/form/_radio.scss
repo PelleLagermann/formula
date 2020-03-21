@@ -1,0 +1,20 @@
+/* radio */
+label.custom-radio { display:block; padding:0; margin:0.5rem 0; position:relative; cursor:default; }
+label.custom-radio > input[type="radio"] {  position:absolute; opacity:0; }
+
+/* wrappers */
+label.custom-radio > .bg { display: block; width: 28px; height:28px; border:2px solid $grey400; position: absolute; top:3px; left:0; }
+label.custom-radio > .dot { 
+	display: block; width: 18px; height: 18px; position: absolute; top:8px; left:5px; border-radius: 100%; opacity:0; 
+	background-color: $grey400;
+	transform-origin:center;	
+	transition: transform 0.2s ease, opacity 0.2s ease; 
+    transform: scale(0.5); 
+}
+label.custom-radio > .text { display:block; padding:0.6rem 0 0.6rem 5rem; color:$grey400; }
+
+/* states */
+label.custom-radio:hover:not(.disabled) > .bg { border-color:$orange; }
+label.custom-radio:hover > .dot { background-color:$orange; }
+label.custom-radio > input[type="radio"]:checked ~ .dot { opacity: 1; transform: scale(1); }
+label.custom-radio.disabled { opacity: 0.5; cursor: not-allowed; }

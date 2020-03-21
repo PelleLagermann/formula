@@ -1,0 +1,350 @@
+@mixin mobile {
+    @media (max-width: #{$tablet - 1px}) {
+        @content;
+    }
+}
+
+@mixin plus {
+    @media (max-width: #{$plus - 1px}) {
+        @content;
+    }
+}
+
+@mixin plus-up {
+    @media (min-width: #{$plus}) {
+        @content;
+    }
+}
+
+@mixin iphone6-up {
+    @media (min-width: #{$iphone6}) {
+        @content;
+    }
+}
+
+@mixin phablet {
+    @media (min-width: #{$phablet}) and (max-width: #{$tablet - 1px}) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (min-width: #{$tablet}) and (max-width: #{$desktop - 1px}) {
+        @content;
+    }
+}
+
+@mixin tablet-narrow {
+    @media (min-width: #{$tablet}) and (max-width: #{$tablet + 50px}) {
+        @content;
+    }
+}
+
+@mixin phablet-up {
+    @media (min-width: #{$phablet}) {
+        @content;
+    }
+}
+
+@mixin phablet-down {
+    @media (max-width: #{$phablet}) {
+        @content;
+    }
+}
+
+@mixin tablet-up {
+    @media (min-width: #{$tablet}) {
+        @content;
+    }
+}
+@mixin tablet-down {
+    @media (max-width: #{$desktop - 1px}) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: #{$desktop}) {
+        @content;
+    }
+}
+
+@mixin desktop-up {
+    @media (min-width: #{$desktop}) {
+        @content;
+    }
+}
+
+@mixin large-desktop {
+    @media (min-width: #{$largedesktop}) {
+        @content;
+    }
+}
+
+@mixin low-screen {
+    @media (max-height: #{$lowscreen}) {
+        @content;
+    }
+}
+
+// Use: @include breakpoint(md){ };
+// https://medium.com/@timknight/creating-a-dead-simple-sass-mixin-to-handle-responsive-breakpoints-889927b37740
+@mixin respond-to($class) {
+    @if $class == mobile {
+        @include mobile {
+            @content
+        }
+    }
+    @else if $class == tablet {
+        @include tablet {
+            @content
+        }
+    }
+    @else if $class == "tablet-up" {
+        @include tablet-up {
+            @content
+        }
+    }
+    @else if $class == desktop {
+        @include desktop {
+            @content
+        }
+    }
+    @else if $class == "desktop-up" {
+        @include desktop-up {
+            @content
+        }
+    }
+    @else if $class == "ie9" {
+        @include ie9 {
+            @content
+        }
+    }
+    @else if $class == "ie10-up" {
+        @include ie10-up {
+            @content
+        }
+    }
+    @else if $class == "ie11-up" {
+        @include ie11-up {
+            @content
+        }
+    }
+    @else if $class == "edge-up" {
+        @include edge-up {
+            @content
+        }
+    }
+    @else if $class == "print" {
+        @include print {
+            @content
+        }
+    }
+    @else if $class == "retina" {
+        @include retina {
+            @content
+        }
+    }
+    @else {
+        @warn "Breakpoint mixin supports: mobile, tablet, tablet-up, desktop, desktop-up, ie9, ie10-up, ie11-up, edge-up, print, retina";
+    }
+}
+
+// Use: @include breakpoint(mobile, tablet){ };
+// https://gist.github.com/peschee/5734414
+@mixin breakpoint($media...) {
+    @each $mediatype in $media {
+        @include respond-to($mediatype) {
+            @content
+        }
+    }
+}
+
+@mixin retina {
+    @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+        @content;
+    }
+}
+
+@mixin print {
+    @media print {
+        @content;
+    }
+}
+
+@mixin ie9 {
+    .ie9 & {
+        @content;
+    }
+}
+
+@mixin ie10-up {
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+        @content;
+    }
+}
+//https://github.com/jsenjoy/hack-css
+@mixin ie11-up {
+    // ie11-up
+    @if & {
+        @at-root {
+            _:-ms-fullscreen, :root & {
+                @content;
+            }
+        }
+    }
+    @else {
+        %hack-ie11-up :root {
+            @content;
+        }
+
+        _:-ms-fullscreen {
+            @extend %hack-ie11-up;
+        }
+    }
+}
+
+@mixin edge-up {
+    @supports (-ms-accelerator:true) {
+        @content
+    }
+}
+
+@mixin firefox {
+    @-moz-document url-prefix() {
+        @content
+    }
+}
+
+@mixin clearfix() {
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+}
+
+@mixin position($position, $args: ()) {
+    $offsets: top right bottom left;
+    position: $position;
+
+    @each $offset in $offsets {
+        $index: index($args, $offset);
+
+        @if $index {
+            @if $index == length($args) {
+                #{$offset}: 0;
+            }
+            @else {
+                $next: nth($args, $index + 1);
+
+                @if is-valid-length($next) {
+                    #{$offset}: $next;
+                }
+                @else if index($offsets, $next) {
+                    #{$offset}: 0;
+                }
+                @else {
+                    @warn "Invalid value `#{$next}` for offset `#{$offset}`.";
+                }
+            }
+        }
+    }
+}
+
+// Function checking if $value is a valid length
+// ---
+// @param [literal] $value: value to test
+// ---
+// @return [bool]
+@function is-valid-length($value) {
+    @return (type-of($value) == "number" and not unitless($value)) or (index(auto initial inherit 0, $value) != false);
+}
+
+// Use: @include absolute();
+@mixin absolute($args: ()) {
+    @include position(absolute, $args);
+}
+// Use: @include fixed();
+@mixin fixed($args: ()) {
+    @include position(fixed, $args);
+}
+// Use: @include relative();
+@mixin relative($args: ()) {
+    @include position(relative, $args);
+}
+
+// REM CALC (https://github.com/zurb/foundation/blob/master/scss/foundation/_functions.scss)
+
+// New Syntax, allows to optionally calculate on a different base value to counter compounding effect of rem's.
+// Call with 1, 2, 3 or 4 parameters, 'px' is not required but supported:
+//
+//   rem(10 20 30px 40);
+//
+// Space delimited, if you want to delimit using comma's, wrap it in another pair of brackets
+//
+//   rem((10, 20, 30, 40px));
+//
+// Optionally call with a different base (eg: 8px) to calculate rem.
+//
+//   rem(16px 32px 48px, 8px);
+//
+// If you require to comma separate your list
+//
+//   rem((16px, 32px, 48), 8px);
+
+@function rem($values, $base-value: $rem-base) {
+    $max: length($values);
+
+    @if $max == 1 {
+        @return convert-to-rem(nth($values, 1), $base-value);
+    }
+
+    $remValues: ();
+
+    @for $i from 1 through $max {
+        $remValues: append($remValues, convert-to-rem(nth($values, $i), $base-value));
+    }
+
+    @return $remValues;
+}
+
+// CONVERT TO REM
+@function convert-to-rem($value, $base-value: $rem-base) {
+    $value: strip-unit($value) / strip-unit($base-value) * 1rem;
+
+    @if ($value == 0rem) {
+        $value: 0;
+    }
+    // Turn 0rem into 0
+    @return $value;
+}
+
+// STRIP UNIT
+// It strips the unit of measure and returns it
+@function strip-unit($num) {
+    @return $num / ($num * 0 + 1);
+}
+
+@mixin backgroundPadding($height, $width, $paddingY, $paddingX: 0) {
+    @if ($paddingX == 0) {
+        $paddingX: $paddingY;
+    }
+
+    background-size: rem($width $height);
+    height: rem($height + $paddingY);
+    width: rem($width + $paddingX);
+}
+
+@mixin size($width, $height) {
+    width: rem($width);
+    height: rem($height);
+}
+
+@mixin square($size) {
+    @include size($size, $size);
+}

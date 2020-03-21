@@ -1,0 +1,57 @@
+/*------------------------------------*\
+    $ICON TEMPLATE FOR GULP-ICONFONT	
+\*------------------------------------*/
+@import "_icons-map-auto-generated.scss";
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+    line-height: inherit; //Override of style from IcoMoon. I believe the IcoMoon style is the correct way to go, but we have loads of icons depending on the parents line-height - Pelle
+}
+
+@mixin alka-font() {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'Alka';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    /*line-height: 1;*/
+    text-transform: none;
+    text-decoration: none;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+%icon {
+    @include alka-font();
+}
+
+@function icon-content-value($unicode) {
+    @return #{ "\"\\" }#{ $unicode + "\"" }; // produces => "\${icon-code}"
+}
+
+@function icon-char($filename) {
+    $icon-name: #{ "icon-" + $filename }; // $icon-name = $icon-$filename
+    $icon-value: map-get($icons, $icon-name);
+
+    @if ($icon-value == null) {
+        @debug "missing icon: " + $filename;
+        $icon-value: #{ "[icon-" + $filename + "]" };
+    }
+
+    @return icon-content-value($icon-value);
+}
+
+@mixin icon($filename, $insert: before) {
+    &:#{$insert} {
+        @extend %icon;
+        content: icon-char($filename);
+    }
+}
+
+@mixin icon-alone($filename, $insert: before) {
+    &:#{$insert} {
+        @include alka-font();
+        content: icon-char($filename);
+    }
+}

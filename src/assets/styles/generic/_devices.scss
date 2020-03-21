@@ -1,0 +1,32 @@
+.visible-mobile {
+	@include tablet-up {
+		display: none !important;
+	}
+}
+
+.visible-phablet {
+    /* quick implementation - might cause issues for non 'block' elements */
+    display: none; 
+    
+    @include phablet {
+        display: block !important;
+    }
+}
+
+.visible-tablet {
+	@include mobile {
+		display: none !important;
+	}
+	@include desktop {
+		display: none !important;
+	}
+}
+
+.visible-desktop {
+	@include mobile {
+		display: none !important;
+	}
+	@include tablet {
+		display: none !important;
+    }
+}

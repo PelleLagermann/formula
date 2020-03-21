@@ -1,0 +1,32 @@
+/* checkbox */
+label.custom-checkbox { display:block; padding:0; margin:0.5rem 0; position:relative; cursor:default; }
+label.custom-checkbox > input[type="checkbox"] {  position:absolute; opacity:0; }
+
+/* wrappers */
+label.custom-checkbox > .bg { 
+	display: block; width: 2.8rem; height: 2.8rem; border: 0.2rem solid $grey400; border-radius:0.2rem; 
+	position: absolute; top:0.3rem; left:0; transition:opacity 200ms ease; 
+}
+label.custom-checkbox > .dot { 
+	display:block; width:2.8rem; height:2.8rem; position: absolute; top:0.3rem; left:0; 
+	text-align:center; line-height:2.8rem; font-size:2.4rem; color: $grey400; opacity: 0; 
+	transition: transform 200ms ease, opacity 200ms ease; transition: opacity 200ms ease,-webkit-transform 200ms ease; 
+	transition: transform 200ms ease, opacity 200ms ease, -webkit-transform 200mss ease; -webkit-transform: scale(0.5); 
+	transform: scale(0.5);
+}
+label.custom-checkbox > .text { display:block; padding:0.6rem 0 0.6rem 5rem; color:$grey400; }
+
+/* states */
+label.custom-checkbox:hover > .bg { border-color:$orange; }
+label.custom-checkbox:hover > .dot { color:$orange; }
+label.custom-checkbox > input[type="checkbox"]:checked ~ .dot { opacity: 1; -webkit-transform: scale(1); transform: scale(1); }
+label.custom-checkbox.disabled { cursor: not-allowed; }
+label.custom-checkbox.disabled > .bg { border-color: $grey700; }
+label.custom-checkbox.error > .bg { border: 0.3rem solid $error; }
+
+.package__build-step-left label.custom-checkbox > .text {
+    padding: 0rem 0 .6rem 5rem;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #5e6167;
+}

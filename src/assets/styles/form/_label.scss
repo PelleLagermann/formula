@@ -1,0 +1,8 @@
+/* label */
+label { color:$grey400; }
+
+/* label states */
+label.smart { padding:0; position:absolute; left:2.5rem; pointer-events: none; color:$grey400; text-transform:initial; }
+
+/* emphasized */
+label.heavy { font-weight:700; }

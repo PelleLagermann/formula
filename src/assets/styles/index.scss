@@ -1,0 +1,19 @@
+/**
+ * DO NOT IMPORT
+ * @import "mixins/index";
+ *
+ * This import is handled by the Vue-Cli to make the mixins usable in all Vue Components by default.
+ */
+
+// From Alka > Frontend > scss
+@import "generic/index";
+@import "objects/index";
+@import "mitalka/index";
+
+// From Alka > Vue > source > styles > scss
+@import "base/index";
+@import "form/index";
+
+// From Alka > Vue > source > styles > css > style.css
+@import "style";
+

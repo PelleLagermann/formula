@@ -1,0 +1,96 @@
+.product-icon {
+    &::before {
+        @include alka-font();
+    }
+}
+
+@mixin product-icon-class($productIds, $icon) {
+    @each $productId in $productIds {
+        [class^='product-icon--#{unquote($productId)}'],
+        [class*=' product-icon--#{unquote($productId)}'] {
+            @extend .#{$icon};
+        }
+    }
+}
+//Bygningsforsikring
+//@include product-icon-class(('BE', 'BG', 'EA', 'HU'), '???'); //-Skal denne bruges? - Gengangere i produktid i forhold til andre produkter
+
+//Busforsikring
+@include product-icon-class('BU', 'icon-bus');
+
+//Campingvognsforsikring
+@include product-icon-class('CA', 'icon-camping');
+
+//Entrepriseforsikring
+//@include product-icon-class(('EG', 'EK', 'EL'), '???'); //-Skal denne bruges?
+
+//Ejerskifteforsikring
+//@include product-icon-class('EJ', '???');//-Skal denne bruges?
+
+//Familieforsikring / Indboforsikring
+@include product-icon-class(('FB', 'FF', 'PF', 'UB'), 'icon-contents');
+
+//Fritidshusforsikring
+@include product-icon-class(('FH'), 'icon-cottage');
+
+//Frivillig Gruppeliv
+@include product-icon-class('FL', 'icon-grouplife');
+
+//Forbund
+@include product-icon-class(('forbund'), 'icon-union');
+
+//Forvaltningsforsikring
+//@include product-icon-class(('FK', 'FV'), '???'); //-Skal denne bruges?
+
+//Gruppeliv Forsikring
+@include product-icon-class('GL', 'icon-grouplife');
+
+//Gruppe Ulykke
+@include product-icon-class('GU', 'icon-accident');
+
+//Hundeforsikring
+@include product-icon-class(('HF', 'HL'), 'icon-dog');
+
+//Husforsikring
+@include product-icon-class(('HU', 'PH', 'VI'), 'icon-house');
+
+//Kundegruppeliv
+@include product-icon-class('KL', 'icon-grouplife');
+
+//Knallertforsikring
+@include product-icon-class('KN', 'icon-moped');
+
+//Kritisk sygdom
+//@include product-icon-class('KS', '???'); //-Skal denne bruges?
+
+//Kollektiv ulykke
+@include product-icon-class('KU', 'icon-accident');
+
+//Lønforsikring
+@include product-icon-class(('LO', 'LA'), 'icon-pay');
+
+//Kollektiv lønforsikring
+@include product-icon-class(('LK'), 'icon-pay'); 
+
+//Lystbådforsikring
+//@include product-icon-class('LY', '???'); //-Skal denne bruges?
+
+//Motorcykel og Registreret knallert
+@include product-icon-class('MO', 'icon-bike');
+
+//Personbilforsikring
+@include product-icon-class('PE', 'icon-car');
+
+//Traktor og arbejdsmaskineforsikring
+@include product-icon-class('TR', 'icon-tractor');
+
+//Ulykkesforsikring
+@include product-icon-class(('BO', 'FU', 'UF', 'IU'), 'icon-accident');
+
+//Vare- og lastbilforsikring
+@include product-icon-class('VA', 'icon-truck');
+
+/*********************************************************************/
+//Non product specific icons
+@include product-icon-class('EMAIL', 'icon-email-field');
+@include product-icon-class('??', 'icon-email-closed'); //Used on Min Indbakke for documents that don't belong to a product

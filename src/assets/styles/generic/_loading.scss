@@ -1,0 +1,80 @@
+$loading-paths: 8;
+$loading-duration: 1200ms;
+$loading-duration-delay: $loading-duration / $loading-paths;
+
+.loading {
+	width: rem(80);
+	transition: opacity linear 250ms, transform linear 250ms;
+
+	@include tablet-up {
+		transition-duration: 150ms;
+	}
+
+	&__path {
+		opacity: 0;
+		animation: loading ease infinite $loading-duration;
+
+		/* Add delay for path 2-8 */
+		@for $i from 2 through $loading-paths {
+			&--#{$i} {
+				animation-delay: $loading-duration-delay * ($i - 1);
+			}
+		}
+
+		&--light {
+			fill: #858f97;
+		}
+	}
+
+	&--centered {
+		@include absolute(top 50% left 50%);
+		transform: translate(-50%, -50%);
+		z-index: 78;
+	}
+	&--top {
+		@include absolute(left 50%);
+		transform: translateX(-50%);
+		z-index: 78;
+	}
+	&--fixed {
+		@extend .loading--centered;
+		position: fixed;
+	}
+	&--light {
+		.loading__path {
+			@extend .loading__path--light;
+		}
+	}
+	&--small {
+		@include square(51);
+	}
+
+	// For wrapping the loader in some relativ div
+	&__container {
+		position: relative;
+		@include clearfix();
+	}
+	&__wrapper {
+		transition: linear 200ms;
+
+		&--loading {
+			opacity: .5;
+			pointer-events: none;
+		}
+		&--fixed {
+			@include fixed(top 0 right 0 bottom 0 left 0);
+			z-index: 200;
+			background-color: rgba(#fff, .5);
+			transition: background-color linear 200ms;
+		}
+	}
+}
+
+@keyframes loading {
+	0%, 25% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
